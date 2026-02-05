@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { getCollection, getEntry } from "astro:content";
+import { Image } from "astro:assets";
 
 const racesPage = await getEntry("pages", "races");
 
@@ -40,6 +41,15 @@ const formatDate = (date: Date) =>
       <div class="grid grid-3">
         {upcomingRaces.map((race) => (
           <article class="card">
+            {race.data.logo && (
+              <Image
+                src={race.data.logo}
+                alt={`${race.data.name} logo`}
+                width={800}
+                format="webp"
+                class="embed race-logo"
+              />
+            )}
             <h3>{race.data.name}</h3>
             <p class="meta">{formatDate(race.data.date)} · {race.data.distance}</p>
             <p>{race.data.location}</p>
@@ -66,6 +76,15 @@ const formatDate = (date: Date) =>
       <div class="grid grid-3">
         {pastRaces.map((race) => (
           <article class="card">
+            {race.data.logo && (
+              <Image
+                src={race.data.logo}
+                alt={`${race.data.name} logo`}
+                width={800}
+                format="webp"
+                class="embed race-logo"
+              />
+            )}
             <h3>{race.data.name}</h3>
             <p class="meta">{formatDate(race.data.date)} · {race.data.distance}</p>
             <p>{race.data.location}</p>
@@ -75,3 +94,11 @@ const formatDate = (date: Date) =>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .race-logo {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+</style>

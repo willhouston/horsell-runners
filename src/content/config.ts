@@ -72,15 +72,17 @@ const membersMerch = defineCollection({
 
 const races = defineCollection({
   type: "content",
-  schema: z.object({
-    group: z.enum(["upcoming", "past"]),
-    order: z.number(),
-    name: z.string(),
-    date: z.date(),
-    location: z.string(),
-    distance: z.string(),
-    signupUrl: z.string().url().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      group: z.enum(["upcoming", "past"]),
+      order: z.number(),
+      name: z.string(),
+      date: z.date(),
+      location: z.string(),
+      distance: z.string(),
+      signupUrl: z.string().url().optional(),
+      logo: image().optional(),
+    }),
 });
 
 export const collections = { blog, pages, runs, membersMerch, races };
