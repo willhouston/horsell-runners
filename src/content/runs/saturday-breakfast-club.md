@@ -6,7 +6,7 @@ schedule: Every Saturday morning
 time: 07:30 start
 distance: 8–11 miles (12.9–17.7 km), with route choices
 pace: Steady to social, finishing with coffee
-meetingPoint: Outside the Beijing Restaurant, Horsell, Surrey
+meetingPoint: Outside the Beijing Restaurant, Horsell, Surrey (if we are not on tour!)
 whatToBring: Cash or card for coffee, and a good appetite
 whoFor: Runners who like an early start and a breakfast reward
 ---
