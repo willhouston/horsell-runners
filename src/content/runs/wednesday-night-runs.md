@@ -9,6 +9,8 @@ pace: Three paced groups (see start times below)
 meetingPoint: Outside the Beijing Restaurant, Horsell, Surrey
 whatToBring: Hi-vis gear, a head torch in winter, and a sense of humour
 whoFor: All paces, from first-timers to seasoned runners
+detailsLabel: Wednesday Calendar
+detailsHref: /wednesday-runs
 ---
 
 Start groups:

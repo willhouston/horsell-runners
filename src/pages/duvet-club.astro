@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { getEntry } from "astro:content";
+
+const page = await getEntry("pages", "duvet-club");
+
+if (!page) {
+  throw new Error("Missing content entry: src/content/pages/duvet-club.md");
+}
+
+const { Content } = await page.render();
+const { title, description, headerTitle, headerSubtitle } = page.data;
+
+const locations = [
+  {
+    name: "Heather Farm",
+    address: "Heather Farm, Horsell Common Rd, Chobham Rd, Woking GU21 4XY",
+    note: "Meet in the car park. Some of us stay for a coffee after our run!",
+    mapSrc:
+      "https://www.openstreetmap.org/export/embed.html?bbox=-0.6075%2C51.3187%2C-0.5915%2C51.3295&amp;layer=mapnik&amp;marker=51.3241%2C-0.5995",
+  },
+  {
+    name: "St John's Lye",
+    address: "St John's Lye, St John's, Woking GU21 7SQ",
+    note: "Meet in the car park. Some of us pop over to Bem for a coffee afterwards",
+    mapSrc:
+      "https://www.openstreetmap.org/export/embed.html?bbox=-0.6045%2C51.2977%2C-0.5885%2C51.3085&amp;layer=mapnik&amp;marker=51.3031%2C-0.5965",
+  },
+  {
+    name: "The Cricketers",
+    address: "Horsell Birch, Woking GU21 4XB",
+    note: "Meet in the car park at the front. Unfortunately nowhere for coffee afterwards",
+    mapSrc:
+      "https://www.openstreetmap.org/export/embed.html?bbox=-0.5845%2C51.3172%2C-0.5685%2C51.3280&amp;layer=mapnik&amp;marker=51.3226%2C-0.5765",
+  },
+];
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title={headerTitle ?? "Sunday Duvet Club"}
+    subtitle={headerSubtitle ?? "Longer, steady Sunday miles with a social group atmosphere."}
+  />
+
+  <section class="section">
+    <div class="container">
+      <article class="card" style="margin-bottom: 1.5rem;">
+        <div class="duvet-copy">
+          <Content />
+        </div>
+        <div class="duvet-rota">
+          <h3>Monthly meeting rota</h3>
+          <p><strong>1st Sunday</strong> - Heather Farm</p>
+          <p><strong>2nd Sunday</strong> - St John's Lye</p>
+          <p><strong>3rd Sunday</strong> - Heather Farm</p>
+          <p><strong>4th Sunday</strong> - Chobham</p>
+          <p><strong>5th Sunday</strong> - On Tour!</p>
+        </div>
+      </article>
+
+      <div class="grid grid-3">
+        {locations.map((location) => (
+          <article class="card">
+            <div class="embed">
+              <iframe
+                title={`Map to ${location.name}`}
+                width="100%"
+                height="260"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                src={location.mapSrc}
+              ></iframe>
+            </div>
+            <h3>{location.name}</h3>
+            <p>{location.address}</p>
+            <p class="meta">{location.note}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .duvet-copy :global(p) {
+    margin: 0 0 0.9rem;
+    color: var(--color-muted);
+  }
+
+  .duvet-copy :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .duvet-rota {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .duvet-rota h3 {
+    margin: 0 0 0.7rem;
+    font-family: var(--font-display);
+  }
+
+  .duvet-rota p {
+    margin: 0 0 0.4rem;
+    color: var(--color-muted);
+  }
+
+  .duvet-rota p:last-child {
+    margin-bottom: 0;
+  }
+</style>

@@ -8,4 +8,4 @@ secondaryLabel: Join Mailing List
 secondaryHref: /mailing-list
 ---
 
-Just show up a few minutes early and introduce yourself. We will pair you with a buddy and help you find the right pace group.
+Just show up a few minutes early and introduce yourself. We will help you find the right pace group.

@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { getEntry } from "astro:content";
+
+const page = await getEntry("pages", "wednesday-runs");
+
+if (!page) {
+  throw new Error("Missing content entry: src/content/pages/wednesday-runs.md");
+}
+
+const { title, description, headerTitle, headerSubtitle, calendarEmbedUrl } = page.data;
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title={headerTitle ?? "Wednesday Runs"}
+    subtitle={headerSubtitle ?? "Live Wednesday run calendar with routes and session updates."}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        {calendarEmbedUrl?.includes("REPLACE_WITH_YOUR_CALENDAR_ID") ? (
+          <>
+            <h3>Calendar setup needed</h3>
+            <p>
+              Add your Google Calendar embed URL in
+              <code> src/content/pages/wednesday-runs.md </code> under
+              <code>calendarEmbedUrl</code> to display the live calendar.
+            </p>
+          </>
+        ) : (
+          <iframe
+            title="Horsell Runners Wednesday Calendar"
+            src={calendarEmbedUrl}
+            class="embed calendar-embed"
+            loading="lazy"
+          ></iframe>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .calendar-embed {
+    width: 100%;
+    min-height: 720px;
+    border: 0;
+  }
+</style>
