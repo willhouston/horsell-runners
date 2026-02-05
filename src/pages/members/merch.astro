@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { Image } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
+import merchImage from "../../assets/Ocho Branfing Group Ltd Tiff_tif.avif";
+
+const merchPage = await getEntry("pages", "members-merch");
+
+if (!merchPage) {
+  throw new Error("Missing content entry: src/content/pages/members-merch.md");
+}
+
+const { title, description, headerTitle, headerSubtitle } = merchPage.data;
+const merchSections = (await getCollection("membersMerch")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const accessEntry = merchSections.find(
+  (entry) => entry.data.sectionType === "access"
+);
+const notesEntry = merchSections.find((entry) => entry.data.sectionType === "notes");
+
+const accessSection = accessEntry
+  ? {
+      data: accessEntry.data,
+      ...(await accessEntry.render()),
+      hasBody: (accessEntry.body ?? "").trim().length > 0,
+    }
+  : null;
+
+const notesSection = notesEntry
+  ? {
+      data: notesEntry.data,
+      ...(await notesEntry.render()),
+      hasBody: (notesEntry.body ?? "").trim().length > 0,
+    }
+  : null;
+---
+<BaseLayout title={title} description={description} noIndex={true}>
+  <PageHeader
+    title={headerTitle ?? "Members merch"}
+    subtitle={headerSubtitle ??
+      "Club kit ordering is handled via our dedicated private Ocho Branding page."}
+  />
+
+  <section class="section">
+    <div class="container grid grid-2">
+      {accessSection && (
+        <div class="card">
+          <Image
+            src={merchImage}
+            alt="Horsell Runners merch"
+            width={171}
+            height={128}
+            format="webp"
+          />
+          <h3>{accessSection.data.title}</h3>
+          {accessSection.hasBody && (
+            <div class="merch-copy">
+              <accessSection.Content />
+            </div>
+          )}
+          <p>
+            <strong>Merch site:</strong>
+            <a
+              href={accessSection.data.merchUrl}
+              target="_blank"
+              rel="noreferrer">{accessSection.data.merchUrl}</a
+            >
+          </p>
+          <p><strong>Password:</strong> {accessSection.data.password}</p>
+          <div class="btn-row">
+            <a
+              class="btn btn-primary"
+              href={accessSection.data.buttonHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {accessSection.data.buttonLabel}
+            </a>
+          </div>
+        </div>
+      )}
+
+      {notesSection && (
+        <div class="card">
+          <h3>{notesSection.data.title}</h3>
+          {notesSection.hasBody && (
+            <div class="merch-copy">
+              <notesSection.Content />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .merch-copy :global(p) {
+    margin: 0 0 0.85rem;
+    color: var(--color-muted);
+  }
+
+  .merch-copy :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

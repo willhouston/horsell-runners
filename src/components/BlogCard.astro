@@ -15,10 +15,9 @@ const dateLabel = new Date(pubDate).toLocaleDateString("en-GB", {
       src={heroImage}
       alt={title}
       width={800}
-      height={500}
       format="webp"
       loading="lazy"
-      class="embed"
+      class="embed blog-card-image"
     />
   )}
   <div>
@@ -35,3 +34,10 @@ const dateLabel = new Date(pubDate).toLocaleDateString("en-GB", {
     </div>
   </div>
 </article>
+
+<style>
+  .blog-card-image {
+    width: 100%;
+    height: auto;
+  }
+</style>
