@@ -1,0 +1,58 @@
+---
+const linkGroups = [
+  {
+    title: "Club",
+    links: [
+      { href: "/about", label: "About Us" },
+      { href: "/runs", label: "Regular Runs" },
+      { href: "/races", label: "Races" },
+      { href: "/merch", label: "Merch" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { href: "/blog", label: "Blog" },
+      { href: "/mailing-list", label: "Mailing List" },
+      { href: "/contact", label: "Contact Us" },
+      { href: "/members", label: "Members Area" },
+    ],
+  },
+];
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h2 class="footer-title">Horsell Runners</h2>
+      <p class="meta">
+        Friendly community runs in Horsell, Surrey. All paces welcome. Come for the
+        run, stay for the stories.
+      </p>
+      <div class="btn-row" style="margin-top: 1rem;">
+        <a class="btn btn-primary" href="/contact">Contact Us</a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/horsellrunners" target="_blank" rel="noreferrer">
+          Instagram
+        </a>
+      </div>
+    </div>
+    {linkGroups.map((group) => (
+      <div>
+        <h3 class="footer-title">{group.title}</h3>
+        <div class="footer-links">
+          {group.links.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </div>
+      </div>
+    ))}
+    <div>
+      <h3 class="footer-title">Meet Us</h3>
+      <p class="meta">
+        Outside the Beijing Restaurant<br />
+        Horsell, Surrey
+      </p>
+      <p class="meta">Wednesdays, Saturdays, Sundays</p>
+      <a class="btn btn-outline" href="/location">Get Directions</a>
+    </div>
+  </div>
+</footer>

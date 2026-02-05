@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Merch illustration">
+  <defs>
+    <linearGradient id="bg-merch" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff5ed" />
+      <stop offset="100%" stop-color="#ffd7bd" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-merch)" />
+  <path d="M360 240 L520 180 L680 240 L640 560 L400 560 Z" fill="#ff6a00" opacity="0.25"/>
+  <path d="M480 220 L520 260 L560 220" fill="none" stroke="#ff3d00" stroke-width="12" opacity="0.5"/>
+  <text x="720" y="260" font-family="Space Grotesk, sans-serif" font-size="56" fill="#1d1b18">Club Merch</text>
+  <text x="720" y="330" font-family="Newsreader, serif" font-size="30" fill="#5f5a54">Wear the orange streak.</text>
+</svg>

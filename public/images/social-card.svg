@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Horsell Runners social card">
+  <defs>
+    <linearGradient id="bg-social" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff3ea" />
+      <stop offset="100%" stop-color="#ffd4b7" />
+    </linearGradient>
+    <linearGradient id="streak-social" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6a00" />
+      <stop offset="100%" stop-color="#ff3d00" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg-social)" />
+  <path d="M0 420 C 260 360, 520 480, 840 380 S 1200 300, 1200 300 L 1200 630 L 0 630 Z" fill="url(#streak-social)" opacity="0.85"/>
+  <text x="100" y="240" font-family="Space Grotesk, sans-serif" font-size="68" fill="#1d1b18">Horsell Runners</text>
+  <text x="100" y="320" font-family="Newsreader, serif" font-size="36" fill="#5f5a54">Friendly running club in Horsell, Surrey</text>
+</svg>

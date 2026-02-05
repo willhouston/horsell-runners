@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { runs } from "../data/runs";
+
+const title = "Regular Runs | Horsell Runners";
+const description =
+  "Weekly runs and walks from Horsell Runners: Wednesday night runs and walks, Saturday Breakfast Club, and Sunday Duvet Club.";
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title="Regular Runs"
+    subtitle="We meet outside the Beijing Restaurant in Horsell for three weekly sessions. Each run is social, welcoming, and designed to suit different paces."
+  />
+
+  <section class="section">
+    <div class="container grid grid-2">
+      {runs.map((run) => (
+        <article id={run.id} class="card">
+          <div>
+            <h2>{run.name}</h2>
+            <p class="meta">{run.schedule} · {run.time}</p>
+          </div>
+          {run.extra && <p>{run.extra}</p>}
+          <div class="grid" style="gap: 0.5rem;">
+            <p><strong>Distance:</strong> {run.distance}</p>
+            <p><strong>Pace:</strong> {run.pace}</p>
+            <p><strong>Meeting point:</strong> {run.meetingPoint}</p>
+            <p><strong>What to bring:</strong> {run.whatToBring}</p>
+            <p><strong>Who it is for:</strong> {run.whoFor}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        <h3>New to the club?</h3>
+        <p>
+          Just show up a few minutes early and introduce yourself. We will pair you
+          with a buddy and help you find the right pace group.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="/contact">Ask a Question</a>
+          <a class="btn btn-outline" href="/mailing-list">Join Mailing List</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

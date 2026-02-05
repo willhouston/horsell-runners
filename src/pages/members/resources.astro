@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+
+const title = "Resources | Horsell Runners";
+const description =
+  "Placeholder resources for Horsell Runners members.";
+---
+<BaseLayout title={title} description={description} noIndex={true}>
+  <PageHeader
+    title="Member resources"
+    subtitle="Placeholder content for future downloads, route files, and member-only updates."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        <h3>What will live here</h3>
+        <ul>
+          <li>Weekly route maps and GPX files</li>
+          <li>Training plans and pacing guides</li>
+          <li>Race day logistics for club entries</li>
+        </ul>
+        <p class="meta">
+          This page will sit behind Cloudflare Access once configured.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

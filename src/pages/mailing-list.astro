@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+const title = "Join the Mailing List | Horsell Runners";
+const description =
+  "Join the Horsell Runners mailing list for weekly run reminders, route updates, and social events.";
+
+const success = Astro.url.searchParams.get("success") === "1";
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title="Join our mailing list"
+    subtitle="Get weekly reminders, route updates, and event invites. No spam, just running."
+  />
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h3>What you will get</h3>
+        <ul>
+          <li>Weekly run times and meeting reminders</li>
+          <li>Special event invites and race plans</li>
+          <li>Seasonal merch drops and socials</li>
+        </ul>
+        <p class="meta">We normally send one email per week.</p>
+      </div>
+      <div class="card">
+        {success && (
+          <p class="notice">Thanks for signing up. We have added you to the list.</p>
+        )}
+        <form
+          class="form"
+          name="mailing-list"
+          method="POST"
+          action="/mailing-list?success=1"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="mailing-list" />
+          <p hidden>
+            <label>
+              Don’t fill this out: <input name="bot-field" />
+            </label>
+          </p>
+          <label>
+            Email address
+            <input class="input" type="email" name="email" required placeholder="you@example.com" />
+          </label>
+          <label>
+            First name (optional)
+            <input class="input" type="text" name="firstName" placeholder="Alex" />
+          </label>
+          <label class="checkbox-row">
+            <input type="checkbox" name="consent" required />
+            I consent to Horsell Runners storing my details for mailing list updates.
+          </label>
+          <button class="btn btn-primary" type="submit">Sign Me Up</button>
+        </form>
+        <p class="meta">
+          Prefer a different provider? Swap this Netlify form for Mailchimp or Brevo
+          when you are ready.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

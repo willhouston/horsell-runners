@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+
+const title = "Members Area | Horsell Runners";
+const description =
+  "Horsell Runners members area. This space will be secured with access controls soon.";
+---
+<BaseLayout title={title} description={description} noIndex={true}>
+  <PageHeader
+    title="Members area"
+    subtitle="This space will be secured soon. For now, it is a placeholder for member resources and updates."
+  />
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h3>Coming soon</h3>
+        <p>
+          We plan to add route libraries, event sign-ups, and shared resources here
+          once access is secured.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Members resources</h3>
+        <p>View the placeholder resources page.</p>
+        <a class="btn btn-outline" href="/members/resources">Go to Resources</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

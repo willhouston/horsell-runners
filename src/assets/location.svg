@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Location illustration">
+  <defs>
+    <linearGradient id="bg-location" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff4ec" />
+      <stop offset="100%" stop-color="#ffd6ba" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-location)" />
+  <circle cx="360" cy="360" r="140" fill="#ff6a00" opacity="0.25" />
+  <path d="M360 260 C 410 260, 440 300, 440 340 C 440 420, 360 520, 360 520 C 360 520, 280 420, 280 340 C 280 300, 310 260, 360 260 Z" fill="#ff3d00" opacity="0.5"/>
+  <circle cx="360" cy="340" r="40" fill="#fff7f0" />
+  <text x="560" y="260" font-family="Space Grotesk, sans-serif" font-size="56" fill="#1d1b18">Find Us</text>
+  <text x="560" y="330" font-family="Newsreader, serif" font-size="30" fill="#5f5a54">Outside the Beijing Restaurant.</text>
+</svg>

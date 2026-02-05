@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { upcomingRaces, pastRaces } from "../data/races";
+
+const title = "Races | Horsell Runners";
+const description =
+  "Upcoming and past races from Horsell Runners, including local 5K, 10K, and half marathon events.";
+
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title="Club Races"
+    subtitle="We pick a few key races each season and train together. Join us for the long runs, the cheer squad, and the post-race stories."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Upcoming</span>
+        <h2 class="section-title">Upcoming races</h2>
+        <p class="section-subtitle">Register early so we can organise pace groups.</p>
+      </div>
+      <div class="grid grid-3">
+        {upcomingRaces.map((race) => (
+          <article class="card">
+            <h3>{race.name}</h3>
+            <p class="meta">{formatDate(race.date)} · {race.distance}</p>
+            <p>{race.location}</p>
+            {race.signupUrl && (
+              <a class="btn btn-outline" href={race.signupUrl} target="_blank" rel="noreferrer">
+                Sign Up
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Past Races</span>
+        <h2 class="section-title">Recent highlights</h2>
+        <p class="section-subtitle">
+          We celebrate every finish line, from personal bests to first-time medals.
+        </p>
+      </div>
+      <div class="grid grid-3">
+        {pastRaces.map((race) => (
+          <article class="card">
+            <h3>{race.name}</h3>
+            <p class="meta">{formatDate(race.date)} · {race.distance}</p>
+            <p>{race.location}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

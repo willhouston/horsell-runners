@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { Image } from "astro:assets";
+import communityImage from "../assets/community-run.svg";
+import dawnImage from "../assets/dawn-run.svg";
+
+const title = "About Horsell Runners";
+const description =
+  "Meet Horsell Runners, a welcoming running club in Horsell, Surrey with weekly runs and walks for all abilities.";
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title="About the club"
+    subtitle="We are a friendly, inclusive running community based in Horsell, Surrey. Expect smiles, encouragement, and a steady orange streak of energy."
+  />
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card">
+        <Image src={communityImage} alt="Horsell Runners community" width={1200} height={800} format="webp" />
+        <h3>Why we run</h3>
+        <p>
+          Horsell Runners exists to make running feel easy to start and joyful to
+          continue. We keep routes simple, pace inclusive, and conversations flowing.
+        </p>
+        <p>
+          Whether you are returning after a break, training for your first 5K, or
+          building up to longer distances, you will find a group that fits.
+        </p>
+      </div>
+      <div class="card">
+        <Image src={dawnImage} alt="Sunday Duvet Club" width={1200} height={800} format="webp" />
+        <h3>What to expect</h3>
+        <p>
+          Meet outside the Beijing Restaurant in Horsell and look for the orange
+          streak. We introduce new faces, explain the route, and make sure everyone
+          feels comfortable before we start.
+        </p>
+        <p>
+          After each run, we make time for a chat. It is the best part of the club.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
