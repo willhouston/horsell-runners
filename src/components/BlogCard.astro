@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+
+const { post, readingTime } = Astro.props;
+const { title, description, pubDate, tags, heroImage } = post.data;
+const dateLabel = new Date(pubDate).toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+<article class="card">
+  {heroImage && (
+    <Image
+      src={heroImage}
+      alt={title}
+      width={800}
+      height={500}
+      format="webp"
+      loading="lazy"
+      class="embed"
+    />
+  )}
+  <div>
+    <p class="meta">{dateLabel} · {readingTime} min read</p>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+  <div class="btn-row">
+    <a class="btn btn-outline" href={`/blog/${post.slug}`}>Read Post</a>
+    <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+      {tags?.map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+  </div>
+</article>

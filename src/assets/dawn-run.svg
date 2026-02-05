@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Dawn run illustration">
+  <defs>
+    <linearGradient id="bg-dawn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff8f1" />
+      <stop offset="100%" stop-color="#ffe1c7" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-dawn)" />
+  <circle cx="900" cy="180" r="110" fill="#ff6a00" opacity="0.25" />
+  <path d="M120 560 C 320 480, 580 620, 920 520" fill="none" stroke="#ff3d00" stroke-width="18" opacity="0.5"/>
+  <text x="100" y="240" font-family="Space Grotesk, sans-serif" font-size="58" fill="#1d1b18">Duvet Club</text>
+  <text x="100" y="310" font-family="Newsreader, serif" font-size="30" fill="#5f5a54">Slow starts, long runs.</text>
+</svg>

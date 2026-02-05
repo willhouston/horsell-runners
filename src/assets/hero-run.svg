@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Horsell Runners hero image">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff3ea" />
+      <stop offset="100%" stop-color="#ffe0c8" />
+    </linearGradient>
+    <linearGradient id="streak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6a00" />
+      <stop offset="100%" stop-color="#ff3d00" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <path d="M0 520 C 250 430, 480 560, 760 460 S 1200 350, 1200 350 L 1200 800 L 0 800 Z" fill="url(#streak)" opacity="0.8"/>
+  <path d="M0 420 C 220 330, 520 470, 880 360 S 1200 260, 1200 260" fill="none" stroke="#ff6a00" stroke-width="14" opacity="0.5"/>
+  <text x="80" y="220" font-family="Space Grotesk, sans-serif" font-size="64" fill="#1d1b18">Horsell Runners</text>
+  <text x="80" y="290" font-family="Newsreader, serif" font-size="32" fill="#5f5a54">Local miles. Big smiles.</text>
+</svg>

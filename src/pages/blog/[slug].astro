@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const allPosts = await getCollection("blog");
+
+const readingTime = (body: string) => {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+};
+
+const relatedPosts = allPosts
+  .filter((entry) => entry.slug !== post.slug)
+  .filter((entry) =>
+    entry.data.tags?.some((tag) =>
+      post.data.tags?.map((t) => t.toLowerCase()).includes(tag.toLowerCase())
+    )
+  )
+  .slice(0, 3);
+
+const dateLabel = new Date(post.data.pubDate).toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+const title = `${post.data.title} | Horsell Runners`;
+const description = post.data.description;
+---
+<BaseLayout title={title} description={description}>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Club Blog</span>
+        <h1 class="section-title">{post.data.title}</h1>
+        <p class="section-subtitle">{post.data.description}</p>
+        <p class="meta">{dateLabel} · {readingTime(post.body)} min read</p>
+      </div>
+      {post.data.heroImage && (
+        <div class="streak">
+          <Image
+            src={post.data.heroImage}
+            alt={post.data.title}
+            width={1200}
+            height={800}
+            format="webp"
+            loading="lazy"
+          />
+        </div>
+      )}
+      <article class="prose" style="margin-top: 2rem;">
+        <Content />
+      </article>
+    </div>
+  </section>
+
+  {relatedPosts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Keep Reading</span>
+          <h2 class="section-title">Related posts</h2>
+        </div>
+        <div class="grid grid-3">
+          {relatedPosts.map((related) => (
+            <article class="card">
+              <h3>{related.data.title}</h3>
+              <p class="meta">
+                {new Date(related.data.pubDate).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </p>
+              <p>{related.data.description}</p>
+              <a class="btn btn-outline" href={`/blog/${related.slug}`}>Read Post</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

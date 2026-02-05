@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { Image } from "astro:assets";
+import locationImage from "../assets/location.svg";
+
+const title = "Location | Horsell Runners";
+const description =
+  "Where Horsell Runners meet: outside the Beijing Restaurant in Horsell, Surrey. Map and travel tips.";
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title="Find us in Horsell"
+    subtitle="We meet outside the Beijing Restaurant in Horsell, Surrey. Arrive 10 minutes early so we can say hello."
+  />
+
+  <section class="section">
+    <div class="container grid grid-2">
+      <div class="card">
+        <Image src={locationImage} alt="Location illustration" width={1200} height={800} format="webp" />
+        <h3>Meeting point</h3>
+        <p>Outside the Beijing Restaurant, Horsell, Surrey</p>
+        <p class="meta">Look for the orange streak and introduce yourself.</p>
+      </div>
+      <div class="card">
+        <div class="embed">
+          <iframe
+            title="Map to Beijing Restaurant, Horsell"
+            width="100%"
+            height="320"
+            frameborder="0"
+            scrolling="no"
+            marginheight="0"
+            marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.604%2C51.312%2C-0.548%2C51.337&amp;layer=mapnik&amp;marker=51.324%2C-0.576"
+          ></iframe>
+        </div>
+        <h3>Travel guidance</h3>
+        <ul>
+          <li>Nearest station: Woking (about 10 minutes by taxi).</li>
+          <li>Parking: street parking is usually available nearby.</li>
+          <li>Arrive 10 minutes early for introductions.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

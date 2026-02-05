@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import { getCollection } from "astro:content";
+
+const title = "Blog | Horsell Runners";
+const description =
+  "News, tips, and stories from the Horsell Runners community.";
+
+const posts = await getCollection("blog");
+const tagParam = Astro.url.searchParams.get("tag");
+const activeTag = tagParam ? tagParam.toLowerCase() : null;
+
+const allTags = Array.from(
+  new Set(
+    posts.flatMap((post) => post.data.tags ?? []).map((tag) => tag.toLowerCase())
+  )
+);
+
+const filteredPosts = activeTag
+  ? posts.filter((post) =>
+      post.data.tags?.some((tag) => tag.toLowerCase() === activeTag)
+    )
+  : posts;
+
+const sortedPosts = filteredPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const readingTime = (body: string) => {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+};
+---
+<BaseLayout title={title} description={description}>
+  <PageHeader
+    title="Club Blog"
+    subtitle="Stories, tips, and updates from our local running community."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Filter by tag</span>
+        <div class="btn-row">
+          <a class={`tag ${!activeTag ? "is-active" : ""}`} href="/blog">All</a>
+          {allTags.map((tag) => (
+            <a
+              class={`tag ${activeTag === tag ? "is-active" : ""}`}
+              href={`/blog?tag=${tag}`}
+            >
+              {tag}
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="grid grid-2">
+        {sortedPosts.map((post) => (
+          <BlogCard post={post} readingTime={readingTime(post.body)} />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
