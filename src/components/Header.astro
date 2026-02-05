@@ -17,15 +17,58 @@ const navLinks = [
       <span class="brand-badge">HR</span>
       Horsell Runners
     </a>
-    <nav class="nav-links" aria-label="Primary navigation">
-      {navLinks.map((link) => (
-        <a href={link.href}>{link.label}</a>
-      ))}
-      <a class="members-link" href="/members">Members</a>
-    </nav>
-    <div class="btn-row">
-      <a class="btn btn-outline" href="/runs">View Runs</a>
-      <a class="btn btn-primary" href="/mailing-list">Join Mailing List</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+      <span class="sr-only">Toggle menu</span>
+      <span class="nav-toggle-icon" aria-hidden="true"></span>
+    </button>
+    <div class="nav-menu" id="primary-menu">
+      <nav class="nav-links" aria-label="Primary navigation">
+        {navLinks.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))}
+        <a class="members-link" href="/members">Members</a>
+      </nav>
+      <div class="btn-row">
+        <a class="btn btn-outline" href="/runs">View Runs</a>
+        <a class="btn btn-primary" href="/mailing-list">Join Mailing List</a>
+      </div>
     </div>
   </div>
 </header>
+<script is:inline>
+  (() => {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    const toggle = header.querySelector(".nav-toggle");
+    const menu = header.querySelector("#primary-menu");
+    if (!toggle || !menu) return;
+
+    const closeMenu = () => {
+      header.dataset.open = "false";
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    const openMenu = () => {
+      header.dataset.open = "true";
+      toggle.setAttribute("aria-expanded", "true");
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = header.dataset.open === "true";
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    const media = window.matchMedia("(min-width: 721px)");
+    const handleResize = () => {
+      if (media.matches) {
+        closeMenu();
+      }
+    };
+    handleResize();
+    media.addEventListener?.("change", handleResize);
+  })();
+</script>

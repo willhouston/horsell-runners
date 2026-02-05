@@ -254,6 +254,13 @@ header.site-header {
   flex-wrap: wrap;
 }
 
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -295,6 +302,72 @@ header.site-header {
 .nav-links .members-link {
   font-size: 0.85rem;
   opacity: 0.7;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.nav-toggle-icon {
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+  display: block;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.2s ease, top 0.2s ease;
+}
+
+.nav-toggle-icon::before {
+  top: -7px;
+}
+
+.nav-toggle-icon::after {
+  top: 7px;
+}
+
+.site-header[data-open="true"] .nav-toggle-icon {
+  background: transparent;
+}
+
+.site-header[data-open="true"] .nav-toggle-icon::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.site-header[data-open="true"] .nav-toggle-icon::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 footer.site-footer {
@@ -394,8 +467,26 @@ textarea {
   .nav-wrap {
     align-items: flex-start;
   }
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+  .nav-menu {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+  .site-header[data-open="true"] .nav-menu {
+    display: flex;
+  }
   .nav-links {
     width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
   }
   .btn-row {
     flex-direction: column;
