@@ -2,45 +2,90 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { Image } from "astro:assets";
-import communityImage from "../assets/community-run.svg";
-import dawnImage from "../assets/dawn-run.svg";
+import { getEntry } from "astro:content";
+import communityImage from "../assets/IMG_1818.jpeg";
 
-const title = "About Horsell Runners";
-const description =
-  "Meet Horsell Runners, a welcoming running club in Horsell, Surrey with weekly runs and walks for all abilities.";
+const aboutPage = await getEntry("pages", "about");
+
+if (!aboutPage) {
+  throw new Error("Missing content entry: src/content/pages/about.md");
+}
+
+const { Content } = await aboutPage.render();
+const { title, description, headerTitle, headerSubtitle } = aboutPage.data;
 ---
+
 <BaseLayout title={title} description={description}>
   <PageHeader
-    title="About the club"
-    subtitle="We are a friendly, inclusive running community based in Horsell, Surrey. Expect smiles, encouragement, and a steady orange streak of energy."
+    title={headerTitle ?? "About the club"}
+    subtitle={headerSubtitle ??
+      "We are a friendly, inclusive running community based in Horsell, Surrey. Expect smiles, encouragement, and a steady orange streak of energy."}
   />
 
   <section class="section">
-    <div class="container grid grid-2">
-      <div class="card">
-        <Image src={communityImage} alt="Horsell Runners community" width={1200} height={800} format="webp" />
-        <h3>Why we run</h3>
-        <p>
-          Horsell Runners exists to make running feel easy to start and joyful to
-          continue. We keep routes simple, pace inclusive, and conversations flowing.
-        </p>
-        <p>
-          Whether you are returning after a break, training for your first 5K, or
-          building up to longer distances, you will find a group that fits.
-        </p>
-      </div>
-      <div class="card">
-        <Image src={dawnImage} alt="Sunday Duvet Club" width={1200} height={800} format="webp" />
-        <h3>What to expect</h3>
-        <p>
-          Meet outside the Beijing Restaurant in Horsell and look for the orange
-          streak. We introduce new faces, explain the route, and make sure everyone
-          feels comfortable before we start.
-        </p>
-        <p>
-          After each run, we make time for a chat. It is the best part of the club.
-        </p>
-      </div>
+    <div class="container">
+      <article class="card about-feature">
+        <div class="about-media">
+          <Image
+            src={communityImage}
+            alt="Horsell Runners community"
+            width={1200}
+            height={800}
+            format="webp"
+          />
+        </div>
+        <div class="about-content">
+          <article class="about-copy">
+            <Content />
+          </article>
+        </div>
+      </article>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .about-feature {
+    display: grid;
+    grid-template-columns: minmax(280px, 42%) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1rem;
+  }
+
+  .about-media :global(picture) {
+    display: block;
+    line-height: 0;
+  }
+
+  .about-media :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+  }
+
+  .about-content {
+    min-width: 0;
+  }
+
+  .about-copy :global(h2),
+  .about-copy :global(h3) {
+    margin-top: 0;
+    font-family: var(--font-display);
+  }
+
+  .about-copy :global(p) {
+    color: var(--color-muted);
+    margin: 0 0 0.85rem;
+  }
+
+  .about-copy :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 900px) {
+    .about-feature {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

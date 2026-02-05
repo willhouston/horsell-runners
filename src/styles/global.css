@@ -76,6 +76,14 @@ a:focus-visible {
   padding: 4rem 0;
 }
 
+main > .section:first-of-type {
+  padding-bottom: 1rem;
+}
+
+main > .section + .section {
+  padding-top: 1rem;
+}
+
 .section-header {
   display: flex;
   flex-direction: column;

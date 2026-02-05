@@ -1,52 +1,102 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
-import { runs } from "../data/runs";
+import { getCollection, getEntry } from "astro:content";
 
-const title = "Regular Runs | Horsell Runners";
-const description =
-  "Weekly runs and walks from Horsell Runners: Wednesday night runs and walks, Saturday Breakfast Club, and Sunday Duvet Club.";
+const runsPage = await getEntry("pages", "runs");
+
+if (!runsPage) {
+  throw new Error("Missing content entry: src/content/pages/runs.md");
+}
+
+const { title, description, headerTitle, headerSubtitle } = runsPage.data;
+
+const runSections = (await getCollection("runs")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const runCards = await Promise.all(
+  runSections
+    .filter((entry) => entry.data.sectionType === "run")
+    .map(async (entry) => {
+      const { Content } = await entry.render();
+      return {
+        id: entry.slug,
+        data: entry.data,
+        Content,
+        hasBody: (entry.body ?? "").trim().length > 0,
+      };
+    })
+);
+
+const ctaEntry = runSections.find((entry) => entry.data.sectionType === "cta");
+const ctaSection = ctaEntry
+  ? {
+      data: ctaEntry.data,
+      ...(await ctaEntry.render()),
+      hasBody: (ctaEntry.body ?? "").trim().length > 0,
+    }
+  : null;
 ---
 <BaseLayout title={title} description={description}>
   <PageHeader
-    title="Regular Runs"
-    subtitle="We meet outside the Beijing Restaurant in Horsell for three weekly sessions. Each run is social, welcoming, and designed to suit different paces."
+    title={headerTitle ?? "Regular Runs"}
+    subtitle={headerSubtitle ??
+      "We meet outside the Beijing Restaurant in Horsell for three weekly sessions. Each run is social, welcoming, and designed to suit different paces."}
   />
 
   <section class="section">
     <div class="container grid grid-2">
-      {runs.map((run) => (
+      {runCards.map((run) => (
         <article id={run.id} class="card">
           <div>
-            <h2>{run.name}</h2>
-            <p class="meta">{run.schedule} · {run.time}</p>
+            <h2>{run.data.name}</h2>
+            <p class="meta">{run.data.schedule} · {run.data.time}</p>
           </div>
-          {run.extra && <p>{run.extra}</p>}
+          {run.hasBody && (
+            <div class="run-copy">
+              <run.Content />
+            </div>
+          )}
           <div class="grid" style="gap: 0.5rem;">
-            <p><strong>Distance:</strong> {run.distance}</p>
-            <p><strong>Pace:</strong> {run.pace}</p>
-            <p><strong>Meeting point:</strong> {run.meetingPoint}</p>
-            <p><strong>What to bring:</strong> {run.whatToBring}</p>
-            <p><strong>Who it is for:</strong> {run.whoFor}</p>
+            <p><strong>Distance:</strong> {run.data.distance}</p>
+            <p><strong>Pace:</strong> {run.data.pace}</p>
+            <p><strong>Meeting point:</strong> {run.data.meetingPoint}</p>
+            <p><strong>What to bring:</strong> {run.data.whatToBring}</p>
+            <p><strong>Who it is for:</strong> {run.data.whoFor}</p>
           </div>
         </article>
       ))}
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="card">
-        <h3>New to the club?</h3>
-        <p>
-          Just show up a few minutes early and introduce yourself. We will pair you
-          with a buddy and help you find the right pace group.
-        </p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href="/contact">Ask a Question</a>
-          <a class="btn btn-outline" href="/mailing-list">Join Mailing List</a>
+  {ctaSection && (
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <h3>{ctaSection.data.title}</h3>
+          {ctaSection.hasBody && (
+            <div class="run-copy">
+              <ctaSection.Content />
+            </div>
+          )}
+          <div class="btn-row">
+            <a class="btn btn-primary" href={ctaSection.data.primaryHref}>
+              {ctaSection.data.primaryLabel}
+            </a>
+            <a class="btn btn-outline" href={ctaSection.data.secondaryHref}>
+              {ctaSection.data.secondaryLabel}
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 </BaseLayout>
+
+<style>
+  .run-copy :global(p) {
+    margin: 0;
+    color: var(--color-muted);
+  }
+</style>
