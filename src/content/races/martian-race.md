@@ -6,4 +6,5 @@ date: 2026-06-21
 location: Horsell Common, Surrey
 distance: Multi-distance trail race
 signupUrl: https://www.martianrace.org/
+logo: ../../assets/martian-race.jpg
 ---
