@@ -1,14 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
 import heroImage from "../assets/hero-run.svg";
 import communityImage from "../assets/community-run.svg";
 import coffeeImage from "../assets/coffee-run.svg";
 import raceImage from "../assets/race-day.svg";
 
-const title = "Horsell Runners | Friendly running club in Horsell, Surrey";
-const description =
-  "Horsell Runners is a welcoming community club in Surrey with weekly runs, walks, and social meetups. All paces welcome.";
+const page = await getEntry("pages", "index");
+
+if (!page) {
+  throw new Error("Missing content entry: src/content/pages/index.md");
+}
+
+const { Content } = await page.render();
+const { title, description } = page.data;
 ---
 <BaseLayout title={title} description={description}>
   <section class="hero">
@@ -28,6 +34,9 @@ const description =
       </div>
       <div class="streak">
         <Image src={heroImage} alt="Horsell Runners hero" width={1200} height={800} format="webp" />
+        <div class="home-copy">
+          <Content />
+        </div>
       </div>
     </div>
   </section>
@@ -107,3 +116,18 @@ const description =
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .home-copy {
+    margin-top: 1.1rem;
+  }
+
+  .home-copy :global(p) {
+    margin: 0 0 0.9rem;
+    color: var(--color-muted);
+  }
+
+  .home-copy :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>
