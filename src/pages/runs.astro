@@ -65,6 +65,13 @@ const ctaSection = ctaEntry
             <p><strong>What to bring:</strong> {run.data.whatToBring}</p>
             <p><strong>Who it is for:</strong> {run.data.whoFor}</p>
           </div>
+          {run.data.detailsHref && run.data.detailsLabel && (
+            <div class="btn-row">
+              <a class="btn btn-outline" href={run.data.detailsHref}>
+                {run.data.detailsLabel}
+              </a>
+            </div>
+          )}
         </article>
       ))}
     </div>

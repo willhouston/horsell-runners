@@ -20,6 +20,7 @@ const pages = defineCollection({
     description: z.string(),
     headerTitle: z.string().optional(),
     headerSubtitle: z.string().optional(),
+    calendarEmbedUrl: z.string().url().optional(),
   }),
 });
 
@@ -37,6 +38,8 @@ const runs = defineCollection({
       meetingPoint: z.string(),
       whatToBring: z.string(),
       whoFor: z.string(),
+      detailsLabel: z.string().optional(),
+      detailsHref: z.string().optional(),
     }),
     z.object({
       sectionType: z.literal("cta"),
